@@ -17,11 +17,22 @@ export const getDetalleEmpleados = async(req, res) => {
 };
 export const deleteDetalleEmpleadosById = async(req, res) => {
     const { id } = req.params
-    const pool = await getConnection();
-    const result = await pool
-        .request()
-        .input('id', id)
-        .query(queries.deleteDetalleEmpleado);
-    console.log(result)
-    res.sendStatus(204)
+    try {
+        const pool = await getConnection();
+        const result = await pool
+            .request()
+            .input('id', id)
+            .query(queries.deleteDetalleEmpleado);
+
+        res.json({
+            ok: true,
+            msg: 'Se elimino correctamente'
+        })
+    } catch (error) {
+        res.status(400).json({
+            ok: false,
+            error
+        })
+    }
+
 }
