@@ -5,6 +5,7 @@ const dbSettings = {
     password: config.dbPassword,
     server: config.dbServer,
     database: config.dbDatabase,
+
     options: {
 
         encrypt: true, // for azure
