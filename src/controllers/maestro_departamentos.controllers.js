@@ -41,14 +41,25 @@ export const getMaestroDepartamentoById = async(req, res) => {
     res.json(result.recordset[0])
 }
 export const deleteMaestroDepartamentoById = async(req, res) => {
-    const { id } = req.params
-    const pool = await getConnection();
-    const result = await pool
-        .request()
-        .input('id', id)
-        .query(queries.deleteMaestroDepartamentoById);
-    console.log(result)
-    res.sendStatus(204)
+    try {
+
+        const { id } = req.params
+        const pool = await getConnection();
+        const result = await pool
+            .request()
+            .input('id', id)
+            .query(queries.deleteMaestroDepartamento);
+        console.log(result)
+        res.json({
+            ok: true,
+            msg: 'Departamento Eliminado!'
+        })
+    } catch (error) {
+        res.status(500).json({
+            ok: true,
+            error
+        })
+    }
 }
 export const updateMaestroDepartamento = async(req, res) => {
     const { nombre } = req.body;
